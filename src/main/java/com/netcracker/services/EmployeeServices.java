@@ -14,11 +14,21 @@ public class EmployeeServices {
     @Autowired
     private EmployeeDao employeeDao;
 
-    public int addNewEmployee(Employee employee){
+    public String addNewEmployee(Employee employee) {
         return employeeDao.addNewEmployee(employee);
     }
 
-    public List<Employee> getAllEmployees(){
+    public List<Employee> getAllEmployees() {
         return employeeDao.getAllEmployees();
+    }
+
+    public Employee getEmployeeById(Integer employeeId) {
+        Employee employee = new Employee();
+        employee.setEmployeeId(employeeId);
+        return employeeDao.getEmployeeById(employee);
+    }
+
+    public int updateEmployee(Employee employee) {
+        return employeeDao.updateEmployee(employee);
     }
 }

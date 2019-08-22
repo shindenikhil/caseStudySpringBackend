@@ -5,9 +5,15 @@
   Time: 8:31 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%
+    if(session.getAttribute("username")!=null){
+        response.sendRedirect("adminHomepage.html");
+    }
+%>
 
 <!doctype html>
 <html lang="en">
@@ -21,6 +27,32 @@
 </head>
 
 <body class="container bg-dark" style="margin-top: 100px; max-width: 500px;">
+
+<%
+    if (request.getAttribute("message") != null) {
+        out.print("<div class=\"card border-dark mb-3\" style=\"border-radius: 25px;border: 2px solid #73AD21;\">\n" +
+                "    <div class=\"card-header\">\n" +
+                "        Error" +
+                "    </div>\n" +
+                "    <div class=\"card-body\">");
+        out.println(request.getAttribute("message"));
+        out.print("</div></div>");
+        request.removeAttribute("message");
+    }
+%>
+
+<%
+    if (request.getAttribute("logoutMessage") != null) {
+        out.print("<div class=\"card border-dark mb-3\" style=\"border-radius: 25px;border: 2px solid #73AD21;\">\n" +
+                "    <div class=\"card-header\">\n" +
+                "        Message" +
+                "    </div>\n" +
+                "    <div class=\"card-body\">");
+        out.println(request.getAttribute("logoutMessage"));
+        out.print("</div></div>");
+        request.removeAttribute("logoutMessage");
+    }
+%>
 
 <div class="card border-dark mb-3" style="border-radius: 25px;border: 2px solid #73AD21;">
     <div class="card-header">

@@ -1,15 +1,19 @@
 package com.netcracker.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Employee {
-    private int employeeId;
+    private Integer employeeId;
     private String firstName;
     private String lastName;
     private String dateOfJoining;
     private String dateOfBirth;
-    private String departmentId;
+    private Integer departmentId;
     private String grade;
     private String designation;
     private String gender;

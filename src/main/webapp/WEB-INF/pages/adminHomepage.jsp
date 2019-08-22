@@ -15,14 +15,14 @@
 </head>
 <body class="bg-dark">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="adminHomepage.jsp" style="margin-left:210px"><b>Employee management</b></a>
+    <a class="navbar-brand" href="adminHomepage.html" style="margin-left:210px"><b>Employee management</b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto"></ul>
-        <form action="logout" method="post">
+        <form action="logout.html" method="post">
             <input type="submit" class="btn btn-danger" value="Logout" style="margin-right: 210px">
         </form>
     </div>
@@ -39,6 +39,17 @@
 <%--            request.removeAttribute("successMessage");--%>
 <%--        }--%>
 <%--    %>--%>
+    <%
+        if (request.getAttribute("successMessage") != null) {
+            out.print("<div class=\"card\" style=\"border-radius: 25px;border: 2px solid #73AD21;\">\n" +
+                    "        <h5 class=\"card-header\" style=\"color:green;\">Success</h5>\n" +
+                    "        <div class=\"card-body\">");
+            out.print(request.getAttribute("successMessage"));
+            out.print("</div>\n" +
+                    "    </div>");
+            request.removeAttribute("successMessage");
+        }
+    %>
     <div class="row">
         <div class="col-md-4">
             <div class="card border-dark mb-3" style="border-radius: 25px;border: 2px solid #73AD21;">
@@ -62,7 +73,7 @@
         <div class="col-md-4">
             <div class="card border-dark mb-3" style="border-radius: 25px;border: 2px solid #73AD21;">
                 <div class="card-body ">
-                    <form action="searchEmployee.jsp" method="post">
+                    <form action="searchEmployee.html" method="post">
                         <input style="width: 100%;height: 100px" class="btn btn-outline-success" type="submit" value="Edit Employee">
                     </form>
                 </div>
