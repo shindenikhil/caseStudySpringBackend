@@ -1,0 +1,93 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body class="bg-dark">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="adminHomepage.jsp" style="margin-left:210px"><b>Employee management</b></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto"></ul>
+        <form action="logout" method="post">
+            <input type="submit" class="btn btn-danger" value="Logout" style="margin-right: 210px">
+        </form>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="card" style="margin-top: 50px;border-radius: 25px">
+        <div class="card-header">
+            All employees(Showing 5 records per page)
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Emp Id</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Joining</th>
+                        <th scope="col">DOB</th>
+                        <th scope="col">Department Id</th>
+                        <th scope="col">Grade</th>
+                        <th scope="col">Designation</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Base Pay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="employee" items="${allEmployees}">
+                    <tr >
+                        <td scope="col">${employee.employeeId}</td>
+                        <td scope="col">${employee.firstName}</td>
+                        <td scope="col">${employee.lastName}</td>
+                        <td scope="col">${employee.dateOfJoining}</td>
+                        <td scope="col">${employee.dateOfBirth}</td>
+                        <td scope="col">${employee.departmentId}</td>
+                        <td scope="col">${employee.grade}</td>
+                        <td scope="col">${employee.designation}</td>
+                        <td scope="col">${employee.gender}</td>
+                        <td scope="col">${employee.basePay}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+
+            </table>
+
+            <div class="container">
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <form class="form-inline pull-right" method="get" action="showAll">
+                            <input type="submit" value="Previous" class="btn btn-light">
+                        </form>
+                    </li>
+                    <li class="list-inline-item">
+                        <form class="form-inline pull-right" method="post" action="showAll">
+                            <input type="submit" value="Next" class="btn btn-primary d-inline">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+</body>
+</html>
