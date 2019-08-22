@@ -6,11 +6,13 @@ import com.netcracker.services.EmployeeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,9 +105,9 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "addNewEmployee.html", method = RequestMethod.POST)
-    public String addNewEmployee(@ModelAttribute("newEmployee") Employee employee, Model model,HttpSession session) {
+    public String addNewEmployee(@ModelAttribute("newEmployee") Employee employee, Model model, HttpSession session) {
         if(session.getAttribute("username")!=null){
-        String message = employeeServices.addNewEmployee(employee);
+            String message = employeeServices.addNewEmployee(employee);
             if (message.equals("true")) {
                 model.addAttribute("successMessage", "New employee successfully created");
                 return "adminHomepage";

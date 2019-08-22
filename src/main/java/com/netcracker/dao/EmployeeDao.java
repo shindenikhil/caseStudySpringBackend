@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,15 +27,14 @@ public class EmployeeDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private static Map<String,String> errorMap = new HashMap<>();
-    public EmployeeDao(){
-        errorMap.put("20001","Employee should be atleast 18 year old");
-        errorMap.put("02290","Employee Id should be 6 digits only and should not start with 0");
-        errorMap.put("02291","Department Not found");
-        errorMap.put("01438","Employee Id must be 6 digits");
-        errorMap.put("00001","Employee already exist");
-        errorMap.put("2291","Department Not found");
-        errorMap.put("2290","Employee Id should be 6 digits only and should not start with 0");
+    private static Map<Integer,String> errorMap = new HashMap<>();
+    public static void intializeErrorMap(){
+        errorMap.put(20001,"Employee should be atleast 18 year old");
+        errorMap.put(2291,"Department Not found");
+        errorMap.put(1438,"Employee Id must be 6 digits");
+        errorMap.put(1,"Employee already exist");
+        errorMap.put(2291,"Department Not found");
+        errorMap.put(2290,"Employee Id should be 6 digits only and should not start with 0");
     }
 
     public RowMapper<Employee> employeeRowMapper = (resultSet, rowNumber) -> {
@@ -84,8 +84,23 @@ public class EmployeeDao {
         try {
             jdbcTemplate.update(Constant.addNewEmployee, objects);
             return "true";
-        } catch (DataAccessException ae) {
-            return "";
+        } catch (UncategorizedSQLException ae) {
+            ae.printStackTrace();
+            EmployeeDao.intializeErrorMap();
+             return errorMap.get(ae.getSQLException().getErrorCode());
+
+//            return ae.getMessage();
+        }catch (DataIntegrityViolationException ae){
+            if(ae.getCause().toString().equals("java.sql.SQLIntegrityConstraintViolationException: ORA-02291: integrity constraint (HR.SYS_C007076) violated - parent key not found\n")){
+                return "Department with id "+employee.getDepartmentId()+" not found";
+            }else{
+                return "Employee Id should be 6 digits only and should not start with 0";
+            }
+//            return "Employee Id should be 6 digits only and should not start with 0";
+//            return ae.getRootCause().toString();
+        }catch (Exception ae){
+            ae.printStackTrace();
+            return "Exception:"+ae.getMessage();
         }
     }
 

@@ -2,6 +2,8 @@ package com.netcracker.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.Size;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,5 +19,5 @@ public class Employee {
     private String grade;
     private String designation;
     private String gender;
-    private int basePay;
+    private Integer basePay;
 }

@@ -15,6 +15,17 @@ public class EmployeeServices {
     private EmployeeDao employeeDao;
 
     public String addNewEmployee(Employee employee) {
+        if (employee.getEmployeeId()==null){
+            return "Invalid employee id";
+        }else{
+            if(employee.getDepartmentId()==null){
+                return "Invalid department Id";
+            }else{
+                if (employee.getBasePay()==null){
+                    return "Invalid salary entered";
+                }
+            }
+        }
         return employeeDao.addNewEmployee(employee);
     }
 

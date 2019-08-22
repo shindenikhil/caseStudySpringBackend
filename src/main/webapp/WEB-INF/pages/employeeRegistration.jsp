@@ -53,6 +53,7 @@
         </div>
 
         <form:form modelAttribute="newEmployee" action="addNewEmployee.html" method="post">
+
             <div class="card-body">
 
                 <div class="input-group mb-3">
@@ -83,7 +84,7 @@
 <%--                    <input name="departmentId" type="text" class="form-control" placeholder="Department Id"--%>
 <%--                           aria-label="employeeId"--%>
 <%--                           required>--%>
-                    <form:input cssClass="form-control" path="departmentId" placeholder="Department Id" required="required"></form:input>
+                    <form:input cssClass="form-control" pattern="[1-9]{1}[0-9]{1,2}" path="departmentId" placeholder="Department Id" required="required"></form:input>
                 </div>
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -161,7 +162,7 @@
 <%--                    <input name="basePay" type="text" class="form-control" placeholder="Salary"--%>
 <%--                           aria-label="Amount (to the nearest rupees)"--%>
 <%--                           required>--%>
-                    <form:input cssClass="form-control" path="basePay" placeholder="Salary" required="required"></form:input>
+                    <form:input cssClass="form-control" pattern="[1-9]{1}[0-9]{1,2,3,4,5,6,7}" path="basePay" placeholder="Salary" required="required"></form:input>
                     <div class="input-group-append">
                         <span class="input-group-text">.00</span>
                     </div>
