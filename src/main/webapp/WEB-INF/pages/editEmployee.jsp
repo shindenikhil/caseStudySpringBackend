@@ -19,7 +19,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"  style="background-color: #e3f2fd;"> -->
-    <a class="navbar-brand" href="adminHomepage.html" style="margin-left:210px"><b>Employee management</b></a>
+    <a class="navbar-brand" href="adminHomepage.html" style="margin-left:210px"><h4>Employee management</h4></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -52,6 +52,7 @@
                                 path="employeeId"
                                 placeholder="Employee Id"
                                 required="required"
+                                readonly="true"
                                 value="${retrievedEmployee.employeeId}"></form:input>
 
                 </div>
@@ -90,26 +91,7 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text">Grade</label>
                     </div>
-                        <%--                    <select name="grade" class="custom-select">--%>
-                        <%--                        <option selected>Choose Grade</option>--%>
-                        <%--                        <option value="G1" selected>G1</option>--%>
-                        <%--                        <option value="G2">G2</option>--%>
-                        <%--                        <option value="G3">G3</option>--%>
-                        <%--                        <option value="G4">G4</option>--%>
-                        <%--                        <option value="G5">G5</option>--%>
-                        <%--                        <option value="G6">G6</option>--%>
-                        <%--                        <option value="G7">G7</option>--%>
-                        <%--                    </select>--%>
-                        <%--                    <form:select path="grade" cssClass="custom-select" >--%>
-                        <%--                        <form:option value="G1">G1</form:option>--%>
-                        <%--                        <form:option value="G2">G2</form:option>--%>
-                        <%--                        <form:option value="G3">G3</form:option>--%>
-                        <%--                        <form:option value="G4">G4</form:option>--%>
-                        <%--                        <form:option value="G5">G5</form:option>--%>
-                        <%--                        <form:option value="G6">G6</form:option>--%>
-                        <%--                        <form:option value="G7">G7</form:option>--%>
-                        <%--                    </form:select>--%>
-                    <form:select path = "grade">
+                    <form:select path = "grade" cssClass="custom-select">
                         <form:option value = "${employee.grade}" label = "Select"/>
                         <form:options items = "${grade}" />
                     </form:select>
@@ -127,21 +109,10 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text">Gender</label>
                     </div>
-                        <%--                    <select name="gender" class="custom-select">--%>
-                        <%--                        <option selected>Choose Gender</option>--%>
-                        <%--                        <option value="Male" selected>Male</option>--%>
-                        <%--                        <option value="Female">Female</option>--%>
-                        <%--                    </select>--%>
-
-                        <%--                    <form:select path="gender">--%>
-                        <%--                        <form:option value="Male">Male</form:option>--%>
-                        <%--                        <form:option value="Female">Female</form:option>--%>
-                        <%--                    </form:select>--%>
-                    <form:select path = "gender">
+                    <form:select path = "gender" cssClass="custom-select">
                         <form:option value = "${employee.gender}" label = "Select"/>
                         <form:options items = "${gender}" />
                     </form:select>
-
                 </div>
 
                 <div class="input-group mb-3">

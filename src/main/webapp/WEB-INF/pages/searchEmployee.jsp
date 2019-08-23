@@ -19,7 +19,7 @@
 <body class=" bg-dark">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="adminHomepage.html" style="margin-left:210px"><b>Employee management</b></a>
+    <a class="navbar-brand" href="adminHomepage.html" style="margin-left:210px"><h4>Employee management</h4></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -33,32 +33,28 @@
 </nav>
 
 <div class="container" style="margin-top: 40px;">
-<%--    <%--%>
-<%--        if(config.getServletContext().getAttribute("errorMessage")!=null){--%>
-<%--            out.print("<div class=\"card border-dark mb-3\" style=\"border-radius: 25px;border: 2px solid #73AD21;\">\n" +--%>
-<%--                    "            <div class=\"card-header\">\n" +--%>
-<%--                    "                <div style=\"color: red\">Error</div>\n" +--%>
-<%--                    "            </div>\n" +--%>
-<%--                    "            <div class=\"card-body\"> ");--%>
-<%--            out.println(config.getServletContext().getAttribute("errorMessage"));--%>
-<%--            out.println("</div>\n" +--%>
-<%--                    "        </div>");--%>
-<%--            config.getServletContext().removeAttribute("errorMessage");--%>
-<%--        }--%>
-<%--    %>--%>
-<%--    <%--%>
-<%--        if(config.getServletContext().getAttribute("successMessage")!=null){--%>
-<%--            out.print("<div class=\"card border-dark mb-3\" style=\"border-radius: 25px;border: 2px solid #73AD21;\">\n" +--%>
-<%--                    "            <div class=\"card-header\">\n" +--%>
-<%--                    "                <div style=\"color: red\">Message</div>\n" +--%>
-<%--                    "            </div>\n" +--%>
-<%--                    "            <div class=\"card-body\"> ");--%>
-<%--            out.println(config.getServletContext().getAttribute("successMessage"));--%>
-<%--            out.println("</div>\n" +--%>
-<%--                    "        </div>");--%>
-<%--            config.getServletContext().removeAttribute("successMessage");--%>
-<%--        }--%>
-<%--    %>--%>
+    <%
+        if (request.getAttribute("errorMessage") != null) {
+            out.print("<div class=\"card\" style=\"border-radius: 25px;border: 2px solid ;\" >\n" +
+                    "        <h5 class=\"card-header\" style=\"color: red\">Unable to Create new Employee</h5>\n" +
+                    "        <div class=\"card-body\">");
+            out.println(request.getAttribute("errorMessage"));
+            out.println("</div>\n" +
+                    "    </div>");
+            request.removeAttribute("errorMessage");
+        }
+    %>
+    <%
+        if (request.getAttribute("successMessage") != null) {
+            out.print("<div class=\"card\" style=\"border-radius: 25px;border: 2px solid #73AD21;\" >\n" +
+                    "        <h5 class=\"card-header\" style=\"color: blue\">Message</h5>\n" +
+                    "        <div class=\"card-body\">");
+            out.println(request.getAttribute("successMessage"));
+            out.println("</div>\n" +
+                    "    </div>");
+            request.removeAttribute("successMessage");
+        }
+    %>
     <div class="card border-dark mb-3" style="border-radius: 25px;border: 2px solid #73AD21;">
         <div class="card-header">
             Search and edit  Employee

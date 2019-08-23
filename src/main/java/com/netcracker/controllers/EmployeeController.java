@@ -58,8 +58,16 @@ public class EmployeeController {
             gender.add("Female");
             model.addAttribute("gender", gender);
 
-            model.addAttribute("retrievedEmployee",employeeServices.getEmployeeById(employee.getEmployeeId()));
-            return "editEmployee";
+            Employee retrievedEmployee = employeeServices.getEmployeeById(employee.getEmployeeId());
+            if(retrievedEmployee!=null) {
+                model.addAttribute("retrievedEmployee",retrievedEmployee );
+                return "editEmployee";
+            }else{
+                model.addAttribute("errorMessage","Employee not found");
+                model.addAttribute("employee",new Employee());
+                return "searchEmployee";
+
+            }
         }else{
             return "redirect:index.html";
         }
@@ -68,11 +76,16 @@ public class EmployeeController {
     @RequestMapping(value = "updateEmployee.html",method = RequestMethod.POST)
     public String updateEmployee(@ModelAttribute("retrievedEmployee")Employee employee,Model model,HttpSession session){
         if(session.getAttribute("username")!=null){
-
-            if(employeeServices.updateEmployee(employee)==1){
-                return "redirect:searchEmployee.html";
+        String message = employeeServices.updateEmployee(employee);
+            if(message.equals("true")){
+                model.addAttribute("successMessage","Employee updated successfully");
+                model.addAttribute("employee",new Employee());
+                return "searchEmployee";
             }else{
-                return "redirect:searchEmployee.html";
+                System.out.println(message);
+                model.addAttribute("errorMessage",message);
+                model.addAttribute("employee",new Employee());
+                return "searchEmployee";
             }
         }else{
             return "redirect:index.html";

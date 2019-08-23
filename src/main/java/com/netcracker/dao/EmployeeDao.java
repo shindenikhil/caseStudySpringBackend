@@ -30,6 +30,7 @@ public class EmployeeDao {
     private static Map<Integer,String> errorMap = new HashMap<>();
     public static void intializeErrorMap(){
         errorMap.put(20001,"Employee should be atleast 18 year old");
+        errorMap.put(6512,"Employee should be atleast 18 year old");
         errorMap.put(2291,"Department Not found");
         errorMap.put(1438,"Employee Id must be 6 digits");
         errorMap.put(1,"Employee already exist");
@@ -56,7 +57,7 @@ public class EmployeeDao {
         return jdbcTemplate.queryForObject(Constant.getEmployeeCount,Integer.class);
     }
 
-    public int updateEmployee(Employee employee) {
+    public String updateEmployee(Employee employee) {
         Object[] objects = new Object[]{
                 employee.getFirstName(),
                 employee.getLastName(),
@@ -69,7 +70,27 @@ public class EmployeeDao {
                 employee.getBasePay(),
                 employee.getEmployeeId()
         };
-        return jdbcTemplate.update(Constant.updateEmployeeById, objects);
+        try{
+             jdbcTemplate.update(Constant.updateEmployeeById, objects);
+             return "true";
+        }catch (UncategorizedSQLException ae) {
+            ae.printStackTrace();
+            EmployeeDao.intializeErrorMap();
+            return errorMap.get(ae.getSQLException().getErrorCode());
+
+//            return ae.getMessage();
+        }catch (DataIntegrityViolationException ae){
+            if(ae.getCause().toString().equals("java.sql.SQLIntegrityConstraintViolationException: ORA-02291: integrity constraint (HR.SYS_C007076) violated - parent key not found\n")){
+                return "Department with id "+employee.getDepartmentId()+" not found";
+            }else{
+                return "Employee Id should be 6 digits only and should not start with 0";
+            }
+//            return "Employee Id should be 6 digits only and should not start with 0";
+//            return ae.getRootCause().toString();
+        }catch (Exception ae){
+            ae.printStackTrace();
+            return "Exception:"+ae.getMessage();
+        }
     }
 
     public String addNewEmployee(Employee employee) {
@@ -118,9 +139,11 @@ public class EmployeeDao {
         for (Employee employee1 : list) {
             System.out.println(employee1.toString());
         }
-
-
-        return list.get(0);
+        if(list.isEmpty()){
+            return null;
+        }else {
+            return list.get(0);
+        }
     }
 
 

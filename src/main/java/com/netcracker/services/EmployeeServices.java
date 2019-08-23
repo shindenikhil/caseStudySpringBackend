@@ -36,10 +36,14 @@ public class EmployeeServices {
     public Employee getEmployeeById(Integer employeeId) {
         Employee employee = new Employee();
         employee.setEmployeeId(employeeId);
-        return employeeDao.getEmployeeById(employee);
+        if(employeeDao.getEmployeeById(employee)!=null) {
+            return employeeDao.getEmployeeById(employee);
+        }else{
+            return null;
+        }
     }
 
-    public int updateEmployee(Employee employee) {
+    public String updateEmployee(Employee employee) {
         return employeeDao.updateEmployee(employee);
     }
 

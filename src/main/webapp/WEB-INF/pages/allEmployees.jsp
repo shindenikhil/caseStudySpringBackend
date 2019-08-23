@@ -19,7 +19,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-    <a class="navbar-brand" href="adminHomepage.html" style="margin-left:210px"><b>Employee management</b></a>
+    <a class="navbar-brand" href="adminHomepage.html" style="margin-left:210px"><h4>Employee management</h4></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -70,8 +70,8 @@
                     </tr>
                 </c:forEach>
                 </tbody>
-
             </table>
+            <hr>
 
             <div class="container">
                 <ul class="list-inline">
