@@ -42,4 +42,12 @@ public class EmployeeServices {
     public int updateEmployee(Employee employee) {
         return employeeDao.updateEmployee(employee);
     }
+
+    public List<Employee> getNextEmployees(int offset) {
+        return employeeDao.getNextEmployees(offset);
+    }
+
+    public int getEmployeeCount() {
+        return employeeDao.getEmployeeCount();
+    }
 }

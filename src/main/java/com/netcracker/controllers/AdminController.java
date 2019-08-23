@@ -28,6 +28,7 @@ public class AdminController {
 
         if (adminServices.getAdminByUsernameAndPassword(admin) != null) {
             session.setAttribute("username", admin.getUsername());
+            session.setAttribute("offset",0);
             return "adminHomepage";
         } else {
             model.addAttribute("message", "Invalid credentials");

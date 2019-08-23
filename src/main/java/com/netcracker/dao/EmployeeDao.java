@@ -52,6 +52,10 @@ public class EmployeeDao {
         return employee;
     };
 
+    public  int getEmployeeCount() {
+        return jdbcTemplate.queryForObject(Constant.getEmployeeCount,Integer.class);
+    }
+
     public int updateEmployee(Employee employee) {
         Object[] objects = new Object[]{
                 employee.getFirstName(),
@@ -117,6 +121,12 @@ public class EmployeeDao {
 
 
         return list.get(0);
+    }
+
+
+    public List<Employee> getNextEmployees(int offset) {
+        Object[] objects = new Object[]{offset+5,offset};
+        return jdbcTemplate.query(Constant.showNextOrPreviousEmployees,objects,employeeRowMapper);
     }
 }
 

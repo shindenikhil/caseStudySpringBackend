@@ -64,8 +64,9 @@
         <div class="col-md-4">
             <div class="card border-dark mb-3" style="border-radius: 25px;border: 2px solid #73AD21;">
                 <div class="card-body ">
-                    <form action="showAllEmployees.html" method="post">
-                        <input style="width: 100%;height: 100px" class="btn btn-outline-success" type="submit" value="Show All Employees">
+                    <form action="showAllEmployees.html" method="get">
+                        <input hidden name="next" value="null">
+                        <input  style="width: 100%;height: 100px" class="btn btn-outline-success" type="submit" value="Show All Employees">
                     </form>
                 </div>
             </div>

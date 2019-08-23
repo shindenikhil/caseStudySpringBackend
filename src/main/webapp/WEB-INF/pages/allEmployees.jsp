@@ -76,14 +76,16 @@
             <div class="container">
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <form class="form-inline pull-right" method="get" action="showAll">
-                            <input type="submit" value="Previous" class="btn btn-light">
-                        </form>
+<%--                        <form class="form-inline pull-right" method="get" action="showAll">--%>
+<%--                            <input type="submit" value="Previous" class="btn btn-light">--%>
+<%--                        </form>--%>
+                        <a href="showAllEmployees.html?next=false" class="form-inline pull-right btn btn-light">Previous</a>
                     </li>
                     <li class="list-inline-item">
-                        <form class="form-inline pull-right" method="post" action="showAll">
-                            <input type="submit" value="Next" class="btn btn-primary d-inline">
-                        </form>
+<%--                        <form class="form-inline pull-right" method="post" action="showAll">--%>
+<%--                            <input type="submit" value="Next" class="btn btn-primary d-inline">--%>
+<%--                        </form>--%>
+                        <a href="showAllEmployees.html?next=true" class="form-inline pull-right btn btn-primary d-inline">Next</a>
                     </li>
                 </ul>
             </div>

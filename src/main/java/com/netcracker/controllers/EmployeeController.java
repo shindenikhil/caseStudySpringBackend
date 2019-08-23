@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -42,7 +41,7 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "submitEmployeeSearchForm.html",method = RequestMethod.POST)
-    public String submitEmployeeSearchForm(@ModelAttribute("employee")Employee employee,Model model,HttpSession session){
+    public String submitEmployeeSearchForm(@ModelAttribute("employee")Employee employee, Model model, HttpSession session){
         if(session.getAttribute("username")!=null){
 
             List<String> listOfGrades = new ArrayList<>();
@@ -135,15 +134,55 @@ public class EmployeeController {
         }
     }
 
-    @RequestMapping(value = "/showAllEmployees.html",method = RequestMethod.POST)
-    public String showAllEmployees(Model model,HttpSession session){
-        if(session.getAttribute("username")!=null){
 
-            List<Employee> allEmployees = employeeServices.getAllEmployees();
-            model.addAttribute("allEmployees",allEmployees);
-            return "allEmployees";
-        }else{
-            return "redirect:index.html";
+    @RequestMapping(value = "/showAllEmployees.html",method = RequestMethod.GET)
+    public String showAllEmployees(@ModelAttribute("next")String next,Model model,HttpSession session){
+        System.out.println(next);
+        if(next.equals("null")){
+            if(session.getAttribute("username")!=null){
+                int offset = (int) session.getAttribute("offset");
+                if(offset< employeeServices.getEmployeeCount()){
+                    offset = 0;
+                    session.removeAttribute("offset");
+                    session.setAttribute("offset",offset);
+                }
+                List<Employee> allEmployees = employeeServices.getNextEmployees(offset);
+                model.addAttribute("allEmployees",allEmployees);
+                return "allEmployees";
+            }else{
+                return "redirect:index.html";
+            }
         }
+        if(next.equals("true")){
+            if(session.getAttribute("username")!=null){
+                int offset = (int) session.getAttribute("offset");
+                if(offset< employeeServices.getEmployeeCount()){
+                    offset = offset + 5;
+                    session.removeAttribute("offset");
+                    session.setAttribute("offset",offset);
+                }
+                List<Employee> allEmployees = employeeServices.getNextEmployees(offset);
+                model.addAttribute("allEmployees",allEmployees);
+                return "allEmployees";
+            }else{
+                return "redirect:index.html";
+            }
+        }
+        if(next.equals("false")){
+            if(session.getAttribute("username")!=null){
+                int offset = (int) session.getAttribute("offset");
+                if(offset>=0){
+                    offset = offset - 5;
+                    session.removeAttribute("offset");
+                    session.setAttribute("offset",offset);
+                }
+                List<Employee> allEmployees = employeeServices.getNextEmployees(offset);
+                model.addAttribute("allEmployees",allEmployees);
+                return "allEmployees";
+            }else{
+                return "redirect:index.html";
+            }
+        }
+        return "";
     }
 }
